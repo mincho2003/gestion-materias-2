@@ -1,0 +1,34 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    background-color: #f0f0f0;
+}
+
+h1 {
+    color: #333;
+}
+
+form {
+    margin-bottom: 20px;
+}
+
+input, button {
+    padding: 10px;
+    margin: 5px;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+li {
+    background-color: #e0e0e0;
+    margin: 5px 0;
+    padding: 10px;
+    border-radius: 4px;
+}
+
+button {
+    cursor: pointer;
+}

@@ -32,11 +32,12 @@ function manejarSolicitud(req, res) {
         res.writeHead(404, { 'Content-Type': 'text/plain' });
         res.end('Recurso no encontrado.');
     }
+    
 }
 
 const server = http.createServer(manejarSolicitud);
 
-const PORT = 3000;
+const PORT = 3001;
 server.listen(PORT, () => {
     console.log(`Servidor escuchando en http://localhost:${PORT}`);
 });
