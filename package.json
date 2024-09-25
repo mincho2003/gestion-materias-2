@@ -1,0 +1,12 @@
+{
+    "name": "gestion-materias",
+    "version": "1.0.0",
+    "description": "Aplicación para gestionar materias usando Node.js sin Express.js",
+    "main": "app.js",
+    "scripts": {
+      "start": "node app.js"
+    },
+    "author": "Benjamin",
+    "license": "MIT"
+  }
+  
