@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Materias</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f0f0f0;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        input, button {
+            padding: 10px;
+            margin: 5px;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            background-color: #e0e0e0;
+            margin: 5px 0;
+            padding: 10px;
+            border-radius: 4px;
+        }
+
+        button {
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Registrar Materia</h1>
+    
+    <!-- Formulario para agregar una nueva materia -->
+    <form id="materiaForm">
+        <input type="text" id="nombre" placeholder="Nombre de la materia" required>
+        <input type="number" id="cantidadAlumnos" placeholder="Cantidad de alumnos" required>
+        <button type="submit">Agregar Materia</button>
+    </form>
+
+    <!-- Botón para eliminar todas las materias -->
+    <button id="eliminarTodas">Eliminar Todas las Materias</button>
+
+    <!-- Lista donde se mostrarán las materias -->
+    <ul id="materiasList"></ul>
+
+    <script>
+        // Manejador del formulario para agregar una nueva materia
+        document.getElementById('materiaForm').addEventListener('submit', async function(e) {
+            e.preventDefault(); // Evitar que el formulario recargue la página
+
+            // Obtener los valores del formulario
+            const nombre = document.getElementById('nombre').value;
+            const cantidadAlumnos = document.getElementById('cantidadAlumnos').value;
+
+            // Enviar la nueva materia al servidor con una solicitud POST
+            const response = await fetch('/api/materias', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ nombre, cantidadAlumnos })
+            });
+
+            const nuevaMateria = await response.json();
+            mostrarMateria(nuevaMateria); // Mostrar la materia en la lista
+
+            // Limpiar el formulario
+            document.getElementById('nombre').value = '';
+            document.getElementById('cantidadAlumnos').value = '';
+        });
+
+        // Función para mostrar una materia en la lista
+        function mostrarMateria(materia) {
+            const li = document.createElement('li');
+            li.textContent = `${materia.nombre} - ${materia.cantidadAlumnos} alumnos`;
+            const eliminarBtn = document.createElement('button');
+            eliminarBtn.textContent = 'Eliminar';
+            eliminarBtn.addEventListener('click', () => eliminarMateria(materia.id, li));
+            li.appendChild(eliminarBtn);
+            document.getElementById('materiasList').appendChild(li);
+        }
+
+        // Función para eliminar una materia por ID
+        async function eliminarMateria(id, li) {
+            const response = await fetch(`/api/materias/${id}`, { method: 'DELETE' });
+            if (response.status === 204) {
+                li.remove(); // Remover la materia de la lista
+            }
+        }
+
+        // Manejador para eliminar todas las materias
+        document.getElementById('eliminarTodas').addEventListener('click', async function() {
+            await fetch('/api/materias', { method: 'DELETE' });
+            document.getElementById('materiasList').innerHTML = ''; // Limpiar la lista
+        });
+    </script>
+</body>
+</html>
