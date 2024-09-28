@@ -73,12 +73,3 @@ Esta aplicación permite gestionar materias, incluyendo la creación, actualizac
 - La lista de materias debe estar vacía.
 
 ![Eliminar Todas las Materias](captura-eliminar-todas-materias.png)
-
-## Instalación
-
-Para ejecutar esta aplicación, sigue estos pasos:
-
-1. Clona el repositorio:
-   ```bash
-   git clone https://github.com/tu-usuario/gestion-materias.git
-   cd gestion-materias
