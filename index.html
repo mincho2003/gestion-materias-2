@@ -11,7 +11,7 @@
             background-color: #f0f0f0;
         }
 
-        h1 {
+        h1, h2 {
             color: #333;
         }
 
@@ -39,6 +39,11 @@
         button {
             cursor: pointer;
         }
+
+        #resultadosBusqueda li {
+            background-color: #d9edf7;
+            color: #31708f;
+        }
     </style>
 </head>
 <body>
@@ -56,6 +61,17 @@
 
     <!-- Lista donde se mostrarán las materias -->
     <ul id="materiasList"></ul>
+
+    <h2>Buscar Materia por Nombre</h2>
+    <form id="buscarMateriaForm">
+        <input type="text" id="nombreBuscar" placeholder="Nombre de la materia" required>
+        <button type="submit">Buscar Materias</button>
+    </form>
+    <ul id="resultadosBusqueda"></ul>
+
+    <h2>Total de Alumnos</h2>
+    <button id="mostrarTotalAlumnos">Mostrar Total de Alumnos</button>
+    <p id="totalAlumnos"></p>
 
     <script>
         // Manejador del formulario para agregar una nueva materia
@@ -106,6 +122,34 @@
         document.getElementById('eliminarTodas').addEventListener('click', async function() {
             await fetch('/api/materias', { method: 'DELETE' });
             document.getElementById('materiasList').innerHTML = ''; // Limpiar la lista
+        });
+
+        // Buscar materias por nombre
+        document.getElementById('buscarMateriaForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            const nombre = document.getElementById('nombreBuscar').value;
+
+            const response = await fetch(`/api/materias?nombre=${nombre}`);
+            const materias = await response.json();
+
+            const resultados = document.getElementById('resultadosBusqueda');
+            resultados.innerHTML = '';
+            materias.forEach(materia => {
+                const li = document.createElement('li');
+                li.textContent = `${materia.nombre} - ${materia.cantidadAlumnos} alumnos`;
+                resultados.appendChild(li);
+            });
+
+            document.getElementById('nombreBuscar').value = '';
+        });
+
+        // Mostrar el total de alumnos
+        document.getElementById('mostrarTotalAlumnos').addEventListener('click', async function() {
+            const response = await fetch('/api/total-alumnos');
+            const { totalAlumnos } = await response.json();
+
+            document.getElementById('totalAlumnos').textContent = `Total de alumnos: ${totalAlumnos}`;
         });
     </script>
 </body>

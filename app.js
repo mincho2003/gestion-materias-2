@@ -24,6 +24,13 @@ function manejarSolicitud(req, res) {
             res.end(JSON.stringify({ error: 'Materia no encontrada' }));
         }
 
+    // Buscar materias por nombre (GET /api/materias?nombre=texto)
+    } else if (req.url.startsWith('/api/materias') && req.method === 'GET' && req.url.includes('?nombre=')) {
+        const nombreBuscado = req.url.split('=')[1].toLowerCase(); // Obtenemos el valor del parámetro de consulta
+        const materiasFiltradas = materias.filter(m => m.nombre.toLowerCase().includes(nombreBuscado)); // Filtramos por nombre
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify(materiasFiltradas)); // Devolvemos las materias que coincidan
+
     // Agregar una nueva materia (POST /api/materias)
     } else if (req.url === '/api/materias' && req.method === 'POST') {
         let body = '';
@@ -54,6 +61,12 @@ function manejarSolicitud(req, res) {
             res.writeHead(404, { 'Content-Type': 'application/json' });
             res.end(JSON.stringify({ error: 'Materia no encontrada' }));
         }
+
+    // Obtener el total de alumnos (GET /api/total-alumnos)
+    } else if (req.url === '/api/total-alumnos' && req.method === 'GET') {
+        const totalAlumnos = materias.reduce((total, materia) => total + materia.cantidadAlumnos, 0); // Sumar todos los alumnos
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ totalAlumnos })); // Devolvemos el total de alumnos
 
     // Servir el archivo HTML principal (GET /)
     } else if (req.url === '/' && req.method === 'GET') {
