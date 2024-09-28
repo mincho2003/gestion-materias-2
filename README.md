@@ -23,7 +23,6 @@ Esta aplicación permite gestionar materias, incluyendo la creación, actualizac
 **Resultado esperado**:
 - La materia "Matemáticas" debe aparecer en la lista con "30 alumnos".
   
-![Registrar Materia](captura-registrar-materia.png)
 
 ### 2. Buscar Materia por Nombre
 
@@ -36,7 +35,6 @@ Esta aplicación permite gestionar materias, incluyendo la creación, actualizac
 **Resultado esperado**:
 - Debe mostrarse "Matemáticas - 30 alumnos" en los resultados de búsqueda.
 
-![Buscar Materia](captura-buscar-materia.png)
 
 ### 3. Mostrar Total de Alumnos
 
@@ -48,7 +46,6 @@ Esta aplicación permite gestionar materias, incluyendo la creación, actualizac
 **Resultado esperado**:
 - Debe mostrarse el total de alumnos: "Total de alumnos: 30" (suponiendo que solo se ha agregado una materia).
 
-![Total de Alumnos](captura-total-alumnos.png)
 
 ### 4. Eliminar Materia
 
@@ -60,7 +57,6 @@ Esta aplicación permite gestionar materias, incluyendo la creación, actualizac
 **Resultado esperado**:
 - La materia "Matemáticas" debe desaparecer de la lista.
 
-![Eliminar Materia](captura-eliminar-materia.png)
 
 ### 5. Eliminar Todas las Materias
 
@@ -72,13 +68,3 @@ Esta aplicación permite gestionar materias, incluyendo la creación, actualizac
 **Resultado esperado**:
 - La lista de materias debe estar vacía.
 
-![Eliminar Todas las Materias](captura-eliminar-todas-materias.png)
-
-## Instalación
-
-Para ejecutar esta aplicación, sigue estos pasos:
-
-1. Clona el repositorio:
-   ```bash
-   git clone https://github.com/tu-usuario/gestion-materias.git
-   cd gestion-materias
